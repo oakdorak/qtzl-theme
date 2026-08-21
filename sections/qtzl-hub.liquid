@@ -1,0 +1,107 @@
+<!-- sections/qtzl-hub.liquid -->
+<div class="qtzl-hub" data-qtzl-hub>
+  <style>
+    :root {
+      --qtzl-bg: #231f24;
+      --qtzl-bg-2: #2b2630;
+      --qtzl-teal: #00bfa5;
+      --qtzl-gold: #ffe066;
+      --qtzl-lav: #896ab0;
+      --qtzl-cream: #e3e0a4;
+      --qtzl-sage: #a8b28a;
+      --qtzl-muted: #9b8e6c;
+      --qtzl-panel: rgba(255,255,255,0.04);
+      --qtzl-panel-hover: rgba(0,191,165,0.08);
+      --qtzl-border: rgba(255,255,255,0.10);
+    }
+    .qtzl-hub { --bg:#231f24; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; background:var(--qtzl-bg); color:var(--qtzl-cream); margin:0 auto; max-width:980px; width:100%; padding:64px 20px 80px; display:grid; gap:42px; justify-items:center; }
+    .qtzl-hub * { box-sizing:border-box; margin:0; }
+    .qtzl-hub .qtzl-mark { display:grid; justify-items:center; text-align:center; }
+    .qtzl-hub .qtzl-mark__emblem { font-size:46px; line-height:1; color:var(--qtzl-gold); }
+    .qtzl-hub .qtzl-mark__tag { letter-spacing:0.42em; text-transform:uppercase; font-size:12px; color:var(--qtzl-teal); font-weight:600; padding-left:0.42em; }
+    .qtzl-hub h1 { color:var(--qtzl-cream); font-size:clamp(28px,4.5vw,40px); font-weight:700; text-align:center; }
+    .qtzl-hub .qtzl-sub { color:var(--qtzl-muted); font-size:15px; line-height:1.6; text-align:center; max-width:60ch; }
+    .qtzl-hub .qtzl-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; width:100%; }
+    .qtzl-hub .qtzl-card { background:var(--qtzl-panel); border:1px solid var(--qtzl-border); border-radius:14px; padding:20px 18px; text-decoration:none; color:inherit; display:grid; gap:8px; position:relative; transition:background 150ms ease,border-color 150ms ease,transform 150ms ease; }
+    .qtzl-hub a.qtzl-card:hover,.qtzl-hub a.qtzl-card:focus { background:var(--qtzl-panel-hover); border-color:var(--qtzl-teal); transform:translateY(-2px); }
+    .qtzl-hub .qtzl-card__title { display:flex; align-items:center; gap:8px; font-size:17px; font-weight:700; color:var(--qtzl-cream); }
+    .qtzl-hub .qtzl-card__title .qtzl-ico { color:var(--qtzl-teal); }
+    .qtzl-hub .qtzl-card__desc { font-size:13px; line-height:1.5; color:var(--qtzl-muted); }
+    .qtzl-hub .qtzl-badge { position:absolute; top:14px; right:14px; font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:4px 8px; border-radius:999px; }
+    .qtzl-hub .qtzl-badge--premium { background:rgba(255,224,102,0.14); color:var(--qtzl-gold); border:1px solid rgba(255,224,102,0.35); }
+    .qtzl-hub .qtzl-badge--base { background:rgba(0,191,165,0.12); color:var(--qtzl-teal); border:1px solid rgba(0,191,165,0.35); }
+    .qtzl-hub .qtzl-badge--owner { background:rgba(137,106,176,0.16); color:var(--qtzl-lav); border:1px solid rgba(137,106,176,0.4); }
+    .qtzl-hub .qtzl-note { font-size:13px; color:var(--qtzl-muted); text-align:center; line-height:1.6; max-width:62ch; }
+    .qtzl-hub .qtzl-note b { color:var(--qtzl-sage); font-weight:600; }
+    .qtzl-hub .qtzl-locked { display:inline-flex; align-items:center; gap:7px; margin-top:14px; background:rgba(255,224,102,0.10); border:1px solid rgba(255,224,102,0.25); color:var(--qtzl-gold); padding:9px 14px; border-radius:10px; font-size:13px; font-weight:600; }
+    @media (max-width:560px) { .qtzl-hub { padding:40px 16px 56px; } }
+  </style>
+
+  <div class="qtzl-mark">
+    <div class="qtzl-mark__emblem" aria-hidden="true">🔱</div>
+    <div class="qtzl-mark__tag">Serpiente Emplumada</div>
+    <h1>Quetzalcoatl</h1>
+    <p class="qtzl-sub">Portal soberano del ecosistema Qtzl. Un solo mundo y sus puertas — para los que comparten el vuelo del mesh.</p>
+  </div>
+
+  <div class="qtzl-grid">
+    <a class="qtzl-card" href="https://beta-sovereign-2015.tail22de7d.ts.net" title="Acceso a todo el ecosistema">
+      <span class="qtzl-badge qtzl-badge--owner">Owner</span>
+      <span class="qtzl-card__title"><span class="qtzl-ico">≋</span> Cielo (Hub Soberano)</span>
+      <span class="qtzl-card__desc">Ruta de entrada al mesh nativo por Tailscale. Nodos, c&oacute;digo y calendario.</span>
+    </a>
+
+    <a class="qtzl-card" href="https://ai.qtzl.cloud" rel="noopener">
+      <span class="qtzl-badge qtzl-badge--base">Base</span>
+      <span class="qtzl-card__title"><span class="qtzl-ico">✦</span> Eureka / IA del mesh</span>
+      <span class="qtzl-card__desc">Gateway de inferencia sobre tu flota — MiniCPM5, Eureka y compa&ntilde;eros locales.</span>
+    </a>
+
+    <a class="qtzl-card" href="https://music.qtzl.cloud" rel="noopener">
+      <span class="qtzl-badge qtzl-badge--base">Base</span>
+      <span class="qtzl-card__title"><span class="qtzl-ico">♫</span> M&uacute;sica (Navidrome)</span>
+      <span class="qtzl-card__desc">Tu biblioteca soberana, streaming propio sin intermediarios.</span>
+    </a>
+
+    <a class="qtzl-card" href="https://files.qtzl.cloud" rel="noopener">
+      <span class="qtzl-badge qtzl-badge--base">Base</span>
+      <span class="qtzl-card__title"><span class="qtzl-ico">▤</span> Archivos</span>
+      <span class="qtzl-card__desc">Vault y repositorio del mesh, solo por red soberana.</span>
+    </a>
+
+    <a class="qtzl-card" href="https://penpot.qtzl.cloud" rel="noopener">
+      <span class="qtzl-badge qtzl-badge--base">Base</span>
+      <span class="qtzl-card__title"><span class="qtzl-ico">◐</span> Penpot (Dise&ntilde;o)</span>
+      <span class="qtzl-card__desc">UI/UX colaborativa de c&oacute;digo abierto. Proyectos y prototipos.</span>
+    </a>
+
+    <a class="qtzl-card" href="https://n8n.qtzl.cloud" rel="noopener">
+      <span class="qtzl-badge qtzl-badge--base">Base</span>
+      <span class="qtzl-card__title"><span class="qtzl-ico">⚙</span> N8N (Automatizaci&oacute;n)</span>
+      <span class="qtzl-card__desc">Workflows y orquestaci&oacute;n del ecosistema, gobernados por t&iacute;.</span>
+    </a>
+
+    <a class="qtzl-card" href="https://vscode.qtzl.cloud" rel="noopener">
+      <span class="qtzl-badge qtzl-badge--base">Base</span>
+      <span class="qtzl-card__title"><span class="qtzl-ico">⌘</span> Code (VS Code)</span>
+      <span class="qtzl-card__desc">Entorno de desarrollo desde el navegador, tu c&oacute;digo, tus reglas.</span>
+    </a>
+
+    <a class="qtzl-card" href="https://studio.qtzl.cloud" rel="noopener">
+      <span class="qtzl-badge qtzl-badge--base">Base</span>
+      <span class="qtzl-card__title"><span class="qtzl-ico">🎬</span> Studio / V&iacute;deo corto</span>
+      <span class="qtzl-card__desc">Espacio de edici&oacute;n y publicaci&oacute;n del mesh.</span>
+    </a>
+
+    <a class="qtzl-card" href="https://jellyfin.qtzl.cloud" rel="noopener">
+      <span class="qtzl-badge qtzl-badge--premium">Super Premium</span>
+      <span class="qtzl-card__title"><span class="qtzl-ico">◆</span> Jellyfin (Cine Soberano)</span>
+      <span class="qtzl-card__desc">Streaming de pel&iacute;culas y series. Exclusivo del plan m&aacute;s alto — ahora, acceso calificado.</span>
+    </a>
+  </div>
+
+  <div class="qtzl-note">
+    <b>Puertas del mesh.</b> Estas rutas viven en tu red soberana (Tailscale/headscale). Si ya eres miembro, ll&eacute;galas por el t&uacute;nel nativo; si no, usa el bot&oacute;n para pedir tu nodo. El acceso se revoca al finalizar la suscripci&oacute;n.
+  </div>
+  <div class="qtzl-locked">🔒 S&oacute;lo visible para miembros del mesh — a&ntilde;ade un nodo para habitarlas</div>
+</div>

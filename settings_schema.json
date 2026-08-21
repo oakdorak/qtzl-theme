@@ -1,0 +1,48 @@
+{
+  "name": "Qtzl",
+  "theme_color": "#231f24",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Identidad visual"
+    },
+    {
+      "type": "color",
+      "id": "qtzl_teal",
+      "label": "Teal primary",
+      "default": "#00bfa5"
+    },
+    {
+      "type": "color",
+      "id": "qtzl-gold",
+      "label": "Gold accent",
+      "default": "#ffe066"
+    },
+    {
+      "type": "color",
+      "id": "qtzl-lavanda",
+      "label": "Lavanda",
+      "default": "#896ab0"
+    },
+    {
+      "type": "header",
+      "content": "Diseño"
+    },
+    {
+      "type": "select",
+      "id": "qtzl_layout",
+      "label": "Layout style",
+      "default": "dark",
+      "options": [
+        {
+          "label": "Dark",
+          "value": "dark"
+        },
+        {
+          "label": "Light",
+          "value": "light"
+        }
+      ]
+    }
+  ]
+}
