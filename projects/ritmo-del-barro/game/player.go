@@ -170,7 +170,7 @@ func (p *Player) Draw(screen *ebiten.Image) {
 // touchInput divide la pantalla lógica (320x180): izq → -1, der → +1,
 // top-center tap → salto. CursorPosition refleja el toque en WASM/iOS.
 func touchInput() (move float64, jump bool) {
-	if !ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
+	if !inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
 		return 0, false
 	}
 	mx, my := ebiten.CursorPosition()

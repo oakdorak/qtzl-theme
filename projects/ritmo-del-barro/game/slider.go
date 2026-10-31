@@ -1,6 +1,12 @@
 package game
 
-import "time"
+import (
+	"image/color"
+	"time"
+
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/vector"
+)
 
 // Vec2 es un punto 2D en coordenadas logicas de pantalla.
 type Vec2 struct {
@@ -47,6 +53,14 @@ func (s *HitSlider) Update(now time.Time) {
 		t = 1
 	}
 	s.CurrentPos = quadraticBezier(s.Start, s.ControlPoint, s.End, t)
+}
+
+// Draw dibuja el slider en su CurrentPos actual de traccion.
+func (s *HitSlider) Draw(screen *ebiten.Image, now time.Time) {
+	if s.Hit || s.Missed {
+		return
+	}
+	vector.DrawFilledCircle(screen, float32(s.CurrentPos.X), float32(s.CurrentPos.Y), 5, color.RGBA{110, 186, 222, 255}, false)
 }
 
 func quadraticBezier(p0, p1, p2 Vec2, t float64) Vec2 {
