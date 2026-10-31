@@ -2,10 +2,13 @@ package game
 
 import (
 	"image/color"
+	"fmt"
+	"math"
 	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
@@ -33,13 +36,15 @@ type Game struct {
 	level    *Level
 	circles  []*HitCircle
 	sliders  []*HitSlider
+	player   *Player
+	platform *Platform
 	started  time.Time
 	finished bool
 }
 
 func NewGame() *Game {
 	return &Game{
-		beat:   NewBeat(120),
+		beat:   NewBeat(Levels[0].BPM),
 		beeper: NewBeeper(),
 		synth:  NewSynth(),
 		state:  StateMenu,
@@ -52,6 +57,9 @@ func (g *Game) Init() error { return nil }
 func (g *Game) StartLevel(idx int) {
 	g.level = Levels[idx]
 	g.state = StatePlaying
+	g.beat = NewBeat(g.level.BPM)
+	g.player = NewPlayer()
+	g.platform = NewPlatform(120, groundY, 200, 20)
 	g.circles = g.buildCircles()
 	g.sliders = g.buildSliders()
 	g.score = 0
@@ -111,13 +119,16 @@ func (g *Game) startFromMenuTap(x, y float64) {
 func (g *Game) Update() error {
 	switch g.state {
 	case StateMenu:
-		if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
+		if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
 			mx, my := ebiten.CursorPosition()
 			g.handleTap(float64(mx), float64(my))
 		}
 		return nil
 	case StatePlaying:
 		g.beat.Update(time.Now())
+		if g.beat.JustTicked() {
+			g.beeper.Tick()
+		}
 		g.synth.Update()
 		now := time.Now()
 		for _, c := range g.circles {
@@ -126,6 +137,7 @@ func (g *Game) Update() error {
 		for _, s := range g.sliders {
 			s.Update(now)
 		}
+		g.player.Update(g.beat, g.platform, groundY)
 		g.handleInput(now)
 		if g.checkFinished() {
 			g.state = StateReflection
@@ -138,7 +150,7 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) handleInput(now time.Time) {
-	if !ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
+	if !inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
 		return
 	}
 	mx, my := ebiten.CursorPosition()
@@ -164,6 +176,19 @@ func (g *Game) handleTap(x, y float64) {
 			if len(g.level.Scale) > 0 {
 				g.synth.PlayScaleIndex(g.level.Scale, c.PitchNote)
 			}
+		}
+	}
+	for _, s := range g.sliders {
+		if s.Hit || s.Missed {
+			continue
+		}
+		if time.Now().After(s.StartTime.Add(s.Duration)) {
+			continue
+		}
+		if math.Hypot(x-s.CurrentPos.X, y-s.CurrentPos.Y) < 10 {
+			s.Hit = true
+			g.score += 25
+			g.combo++
 		}
 	}
 }
@@ -197,8 +222,10 @@ func (g *Game) Draw(screen *ebiten.Image) {
 			c.Draw(screen, time.Now())
 		}
 		for _, s := range g.sliders {
-			_ = s
+			s.Draw(screen, time.Now())
 		}
+		g.platform.Draw(screen, g.beat.phase)
+		g.player.Draw(screen)
 		g.drawHUD(screen)
 	case StateReflection:
 		g.drawReflection(screen)
@@ -215,7 +242,7 @@ func (g *Game) drawMenu(screen *ebiten.Image) {
 		h := float32(30)
 		vector.DrawFilledRect(screen, 8, float32(y), w, h, color.RGBA{35, 30, 54, 255}, false)
 		ebitenutil.DebugPrint(screen, l.Name)
-		ebitenutil.DebugPrint(screen, "bpm")
+		ebitenutil.DebugPrint(screen, fmt.Sprintf("%v bpm", g.level.BPM))
 	}
 }
 
