@@ -4,6 +4,7 @@ import (
 	"image/color"
 	"fmt"
 	"math"
+	"strconv"
 	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -255,6 +256,8 @@ func (g *Game) drawHUD(screen *ebiten.Image) {
 
 func (g *Game) drawReflection(screen *ebiten.Image) {
 	ebitenutil.DebugPrint(screen, "REFLEXION COMPLETADA")
+	ebitenutil.DebugPrint(screen, "Puntuación: "+strconv.Itoa(g.score))
+	ebitenutil.DebugPrint(screen, "Combo: "+strconv.Itoa(g.combo))
 }
 
 func (g *Game) Layout(w, h int) (int, int) { return ScreenW, ScreenH }
